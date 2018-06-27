@@ -144,5 +144,5 @@ nums.insert(90);
 nums.insert(22);
 
 // console.log(nums);
-postOrder(nums);
+postcdOrder(nums);
 
