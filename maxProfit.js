@@ -1,4 +1,4 @@
-const data = [128, 97, 121, 123, 98, 97, 105];
+const data = [128, 97, 121, 124, 98, 97, 105];
 
 //you need find the min and max
 // cheat option
@@ -21,7 +21,6 @@ const data = [128, 97, 121, 123, 98, 97, 105];
 
 function maxProfit(arr) {
   let maxProfit = 0;
-  let miniProfits = [];
   for (let i = 0; i < arr.length; i++) {
     let dayProfit = 0;
     for (let k = i + 1; k < arr.length; k++) {
@@ -29,14 +28,31 @@ function maxProfit(arr) {
         dayProfit = data[k] - data[i];
       }
     }
-    miniProfits.push(dayProfit);
-  }
-  miniProfits.map(item => {
-    if (item > maxProfit){
-      maxProfit = item;
+    if (dayProfit > maxProfit){
+      maxProfit = dayProfit;
     }
-  });
+  }
   return maxProfit;
 }
 
+function maxProfitRecursive (arr, maxProfit = 0){
+  if (arr.length <= 2){
+    if (maxProfit < arr[1]-arr[0]){
+      return arr[1]-arr[0];
+    }
+    else {
+      return maxProfit;
+    }
+  }
+  arr.shift();
+  if (maxProfit > Math.max(...arr) - arr[0]){
+    return maxProfitRecursive(arr, maxProfit);
+  }
+  else {
+    maxProfit = Math.max(...arr) - arr[0];
+    return maxProfitRecursive(arr, maxProfit);
+  }
+}
+
 console.log(maxProfit(data));
+console.log(maxProfitRecursive(data));
